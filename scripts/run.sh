@@ -67,6 +67,6 @@ docker run -d --name $CONTAINER_NAME \
     -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD \
     -e PGDATA=$PGDATA \
     -p $POSTGRES_PORT:5432 \
-    -v ./postgres/conf/postgresql.conf:/tmp/postgresql.conf \
-    -v ./postgres/postgres:/var/lib/postgresql/data/pgdata \
+    -v `pwd -P`/postgres/conf/postgresql.conf:/tmp/postgresql.conf \
+    -v `pwd -P`/postgres/postgres:/var/lib/postgresql/data/pgdata \
     postgres-custom \
