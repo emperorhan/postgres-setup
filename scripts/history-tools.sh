@@ -33,7 +33,7 @@ while [[ "$#" -gt 0 ]]; do
     case $1 in
     -n | --name)
         CONTAINER_NAME="$2"
-        shift
+        shift 2
         ;;
     -i | --init)
         SUB_COMMAND+=" --fpg-drop --fpg-create"
@@ -41,31 +41,31 @@ while [[ "$#" -gt 0 ]]; do
         ;;
     -e | --endpoint)
         SHIP_ENDPOINT="$2"
-        shift
+        shift 2
         ;;
     -s | --skip)
         SUB_COMMAND+=" --fill-skip-to=$2"
-        shift
+        shift 2
         ;;
     --db-name)
         POSTGRES_DB="$2"
-        shift
+        shift 2
         ;;
     --db-user)
         POSTGRES_USER="$2"
-        shift
+        shift 2
         ;;
     --db-passwd)
         POSTGRES_PASSWORD="$2"
-        shift
+        shift 2
         ;;
     --db-host)
         POSTGRES_HOST="$2"
-        shift
+        shift 2
         ;;
     --db-port)
         POSTGRES_PORT="$2"
-        shift
+        shift 2
         ;;
     -h | --help)
         usage
@@ -75,7 +75,6 @@ while [[ "$#" -gt 0 ]]; do
         usage
         ;;
     esac
-    shift
 done
 
 echo "CONTAINER_NAME: $CONTAINER_NAME"
