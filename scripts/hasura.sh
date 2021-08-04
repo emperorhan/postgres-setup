@@ -11,7 +11,7 @@ function usage() {
     --db-passwd             PostgreSQL Password
     --db-host               PostgreSQL Host Ip
     --db-port               PostgreSQL Host Port
-    -h, --help              How to use run.sh
+    -h, --help              How to use hasura.sh
     \\n" "$0" 1>&2
     exit 1
 }

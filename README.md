@@ -1,12 +1,19 @@
-### Pre-Run
+
+# Pre-Run
 
 ```bash
 # build dockerfile
 $ docker build -f postgres/Dockerfile -t postgres-custom .
 ```
 
+or
 
-### Run
+```bash
+# build dockerfile
+$ docker build -f postgres/Dockerfile-hasura-pg -t postgres-custom .
+```
+
+# Run
 
 ```bash
 # exec run.sh
