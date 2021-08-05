@@ -101,7 +101,7 @@ docker run -d --name $CONTAINER_NAME \
     -e PGDATABASE=$POSTGRES_DB \
     -e PGHOST=$POSTGRES_HOST \
     -e PGPORT=$POSTGRES_PORT \
-    eosio/history-tools:9415f91 \
+    ibct/history-tools:2.0.7 \
     /bin/sh -c "
         echo Waiting for nodeos service start...;
         while ! nc -z $SHIP_HOST $SHIP_PORT; do
