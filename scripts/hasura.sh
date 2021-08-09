@@ -92,7 +92,7 @@ echo "POSTGRES_PORT: $POSTGRES_PORT"
 docker run -d --name $CONTAINER_NAME \
     -e HASURA_GRAPHQL_DATABASE_URL=postgres://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOST:$POSTGRES_PORT/$POSTGRES_DB \
     -e HASURA_GRAPHQL_ENABLE_CONSOLE="true" \
-    -e HASURA_GRAPHQL_ENABLED_LOG_TYPES=startup, http-log, webhook-log, websocket-log, query-log \
+    -e HASURA_GRAPHQL_ENABLED_LOG_TYPES="startup, http-log, webhook-log, websocket-log, query-log" \
     -e HASURA_GRAPHQL_ADMIN_SECRET=$HASURA_GRAPHQL_ADMIN_SECRET \
     -e HASURA_GRAPHQL_JWT_SECRET="{\"type\": \"RS256\", \"key\": \"$HASURA_GRAPHQL_JWT_PUBLIC_KEY\", \"claims_namespace\": \"claims\", \"claims_format\": \"json\"}" \
     -e HASURA_GRAPHQL_UNAUTHORIZED_ROLE=anonymous \
