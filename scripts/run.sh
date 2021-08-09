@@ -68,5 +68,6 @@ docker run -d --name $CONTAINER_NAME \
     -e PGDATA=$PGDATA \
     -p $POSTGRES_PORT:5432 \
     -v `pwd -P`/postgres/conf/postgresql.conf:/tmp/postgresql.conf \
+    -v `pwd -P`/postgres/conf/init.sql:/tmp/init.sql \
     -v `pwd -P`/postgres/postgres:/var/lib/postgresql/data/pgdata \
     postgres-custom \
