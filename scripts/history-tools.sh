@@ -4,7 +4,8 @@ function usage() {
     printf "Usage: $0 OPTION...
     -n, --name                  History-tools Container name
     -i, --init                  fill-pg init
-    -e, --endpoint ENDPOINT     State history plugin node endpoint
+    -h, --host HOST             State history plugin node host
+    -p, --port PORT             State history plugin node port
     -s, --skip BLOCK_NUM        fill-pg skip block number
     --db-name                   PostgreSQL Database name
     --db-user                   PostgreSQL User name
@@ -19,7 +20,8 @@ function usage() {
 [ $# -eq 0 ] && usage
 
 CONTAINER_NAME="fill-pg"
-SHIP_ENDPOINT="127.0.0.1:8080"
+SHIP_HOST="127.0.0.1"
+SHIP_PORT="8080"
 
 SUB_COMMAND=""
 
@@ -39,8 +41,12 @@ while [[ "$#" -gt 0 ]]; do
         SUB_COMMAND+=" --fpg-drop --fpg-create"
         shift
         ;;
-    -e | --endpoint)
-        SHIP_ENDPOINT="$2"
+    -h | --host)
+        SHIP_HOST="$2"
+        shift 2
+        ;;
+    -p | --port)
+        SHIP_PORT="$2"
         shift 2
         ;;
     -s | --skip)
@@ -79,7 +85,8 @@ done
 
 echo "CONTAINER_NAME: $CONTAINER_NAME"
 
-echo "SHIP_ENDPOINT: $SHIP_ENDPOINT"
+echo "SHIP_HOST: $SHIP_HOST"
+echo "SHIP_PORT: $SHIP_PORT"
 echo "SUB_COMMAND: $SUB_COMMAND"
 
 echo "POSTGRES_DB: $POSTGRES_DB"
@@ -94,11 +101,11 @@ docker run -d --name $CONTAINER_NAME \
     -e PGDATABASE=$POSTGRES_DB \
     -e PGHOST=$POSTGRES_HOST \
     -e PGPORT=$POSTGRES_PORT \
-    eosio/history-tools:9415f91 \
+    ibct/history-tools:2.0.7 \
     /bin/sh -c "
         echo Waiting for nodeos service start...;
-        while ! nc -z $SHIP_ENDPOINT; do
+        while ! nc -z $SHIP_HOST $SHIP_PORT; do
           sleep 1;
         done;
-        fill-pg --fill-connect-to=$SHIP_ENDPOINT --fill-trx=\"-:executed::led:onblock\" --fill-trx=\"+:executed:::\" $SUB_COMMAND
+        fill-pg --fill-connect-to=$SHIP_HOST:$SHIP_PORT --fill-trx=\"-:executed::led:onblock\" --fill-trx=\"+:executed:::\" $SUB_COMMAND
       "
